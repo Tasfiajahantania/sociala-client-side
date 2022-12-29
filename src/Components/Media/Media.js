@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import SinglePost from '../SinglePost/SinglePost';
+import PostCard from '../PostCard/PostCard';
 
 const Media = () => {
     const [posts, setPosts] = useState([])
@@ -15,10 +15,10 @@ const Media = () => {
             <h3 className='text-3xl mt-8 text-center'>Media</h3>
             <div className='grid grid-cols-4 md:grid-cols-3 sm:grid-cols-1'>
                 {
-                    posts.map(post => <SinglePost
+                    posts.map(post => <PostCard
                         key={post._id}
                         post={post}
-                    ></SinglePost>)
+                    ></PostCard>)
                 }
             </div>
         </div>
