@@ -43,7 +43,8 @@ const MakePost = () => {
     }
     return (
         <div>
-            <div className='w-96 my-8 m-auto '>
+            <div className='w-96 my-8 m-auto sm:px-3'>
+                <h3 className='text-3xl text-center'>Make a Post</h3>
                 <form onSubmit={handelPost} className='flex flex-col' >
                     <label className='my-3' htmlFor="text">What is on your mind? </label>
                     <textarea name='text' className="textarea textarea-primary" required id='text' placeholder="what is on your mind?"></textarea>

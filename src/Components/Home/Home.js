@@ -24,7 +24,7 @@ const Home = () => {
 
             <div>
                 <h3 className='text-3xl text-center my-3'>Top Reaction Post</h3>
-                <div className='grid grid-cols-4 md:grid-cols-3 sm:grid-cols-1'>
+                <div className='grid md:grid-cols-3 sm:grid-cols-1'>
                     {
                         posts.map(post => <PostCard
                             key={post._id}
