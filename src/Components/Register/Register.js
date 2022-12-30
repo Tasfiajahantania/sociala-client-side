@@ -6,11 +6,11 @@ import useTitle from '../../Hook/useTitle';
 
 const Register = () => {
     useTitle('Register')
-    const {registerUser, updateUser} = useContext(AuthContext);
+    const { registerUser, updateUser } = useContext(AuthContext);
     const navigate = useNavigate()
     const location = useLocation()
     const from = location.state?.from?.pathname || '/';
-    
+
     const handelregister = (event) => {
         event.preventDefault()
         const name = event.target.name.value;
@@ -19,39 +19,39 @@ const Register = () => {
         // console.log(name, email, password);
 
         registerUser(email, password)
-        .then(res => {
-            const user = res.user;
-            // console.log(user)
-            const currentUser = {
-                email: user.email
-            }
+            .then(res => {
+                const user = res.user;
+                // console.log(user)
+                const currentUser = {
+                    email: user.email
+                }
 
-            const userInfo = {
-                displayName: name
-            }
-            updateUser(userInfo)
-                .then(() => {
-                    
+                const userInfo = {
+                    displayName: name
+                }
+                updateUser(userInfo)
+                    .then(() => {
+
+                    })
+                    .catch(err => console.log(err));
+
+                fetch('https://my-services-server.vercel.app/jwt', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(currentUser)
                 })
-                .catch(err => console.log(err));
+                    .then(res => res.json())
+                    .then(data => {
+                        // console.log(data);
+                        localStorage.setItem('token', data.token)
+                    })
 
-            fetch('https://my-services-server.vercel.app/jwt', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(currentUser)
+                navigate(from, { replace: true });
+
             })
-            .then(res => res.json())
-            .then(data => {
-                // console.log(data);
-                localStorage.setItem('token', data.token)
-            })
-
-            navigate(from , {replace : true});
-
-        })
-        .catch(error => console.log(error))
+            .catch(error => console.log(error))
         event.target.reset()
     }
     return (
@@ -83,7 +83,7 @@ const Register = () => {
                     </div>
                 </form>
 
-                <p className="text-center py-3">Allredy have an account? <Link to="/login">Login</Link></p>
+                <p className="text-center py-3">Already have an account? <Link to="/login">Login</Link></p>
             </div>
         </div>
     );

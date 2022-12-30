@@ -12,7 +12,7 @@ const provider = new GoogleAuthProvider();
 const Login = () => {
     useTitle("Login")
     const [error, setError] = useState('')
-    const {login, googleSignup} = useContext(AuthContext);
+    const { login, googleSignup } = useContext(AuthContext);
 
     const navigate = useNavigate()
     const location = useLocation()
@@ -25,40 +25,40 @@ const Login = () => {
         const password = event.target.password.value;
 
         login(email, password)
-        .then(result => {
-            const user = result.user;
-    
-            const currentUser = {
-                email: user.email
-            }
+            .then(result => {
+                const user = result.user;
 
-            fetch('https://my-services-server.vercel.app/jwt', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(currentUser)
-            })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data);
-                localStorage.setItem('token', data.token)
-            })
+                const currentUser = {
+                    email: user.email
+                }
 
-            navigate(from , {replace : true});
-            // console.log(user);
-        })
-        .catch(error => setError(error.message))
+                fetch('https://my-services-server.vercel.app/jwt', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(currentUser)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log(data);
+                        localStorage.setItem('token', data.token)
+                    })
+
+                navigate(from, { replace: true });
+                // console.log(user);
+            })
+            .catch(error => setError(error.message))
         event.target.reset()
     }
     const handelGoogleSignUp = () => {
 
         googleSignup(provider)
-        .then(result => {
-            const user = result.user;
-            console.log(user);
-        })
-        .catch(error => setError(error.message))
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+            })
+            .catch(error => setError(error.message))
     }
     return (
         <div>
@@ -85,7 +85,7 @@ const Login = () => {
                     <p>{error}</p>
                 </div>
                 <div className="sm:w-full md:w-1/2 m-auto flex justify-center">
-                    <button onClick={handelGoogleSignUp} className='btn btn-primary sm:w-1/2 md:w-full'><span className='px-2'> <FaGoogle></FaGoogle> </span> Google</button>
+                    <button onClick={handelGoogleSignUp} className='btn bg-pink-400 px-24 sm:w-1/2 md:w-full'><span className='px-2'> <FaGoogle></FaGoogle> </span> Google</button>
                 </div>
                 <p className="text-center py-3">Don't have an account? <Link to="/register">Sign Up</Link></p>
             </div>
